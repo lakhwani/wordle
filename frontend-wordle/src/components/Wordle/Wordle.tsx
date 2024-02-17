@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Box, Text } from "@chakra-ui/react";
 import WordleGrid from "../WordleGrid/WordleGrid";
+import { isAlphabet } from "@/utils/utils";
 
 export function Wordle() {
   const [word, setWord] = useState<string>("");
@@ -10,7 +11,7 @@ export function Wordle() {
       let newWord = word;
       if (event.key == "Backspace") {
         newWord = newWord.slice(0, -1);
-      } else {
+      } else if (isAlphabet(event.key) && newWord.length < 5) {
         newWord = word + event.key;
       }
       setWord(newWord);

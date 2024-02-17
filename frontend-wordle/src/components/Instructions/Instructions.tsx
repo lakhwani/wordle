@@ -13,7 +13,8 @@ export default function Instructions() {
     >
       <Text fontSize="md">⌨️ &nbsp; use your keyboard to add a character</Text>
       <Text fontSize="md">
-        ⌫ to remove a character &nbsp; | &nbsp; ⏎ to submit your guess
+        ⌫ &nbsp;to remove a character &nbsp; | &nbsp; ⏎ &nbsp;to submit your
+        guess
       </Text>
     </Box>
   );
