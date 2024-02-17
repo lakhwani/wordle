@@ -1,3 +1,4 @@
+import { getColour } from "@/utils/utils";
 import { Box, Text } from "@chakra-ui/react";
 import { Londrina_Outline } from "@next/font/google";
 
@@ -21,6 +22,7 @@ export function WordleLetter(props: WordleLetterProps) {
       borderColor={"gray.200"}
       minH={"7.5vh"}
       rounded={"3xl"}
+      bg={getColour(props.score)}
     >
       <Text
         className={lodrinaOutline.className}

@@ -1,9 +1,8 @@
 import { Box, SimpleGrid } from "@chakra-ui/react";
 import WordleRow from "../WordleRow/WordleRow";
-import { wordleData } from "@/types/global";
 
 interface WordleGridProps {
-  data: wordleData;
+  data: WordleData;
 }
 
 export default function WordleGrid(props: WordleGridProps) {

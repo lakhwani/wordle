@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import { Box, Text, Button } from "@chakra-ui/react";
 import WordleGrid from "../WordleGrid/WordleGrid";
-import { isAlphabet } from "@/utils/utils";
-import { rowData, wordleData } from "@/types/global";
+import { findUnusedIndex, isAlphabet } from "@/utils/utils";
 
 export function Wordle() {
   const [word, setWord] = useState<string>("");
-  const [wordleData, setWordleData] = useState<wordleData>(
+  const [wordleData, setWordleData] = useState<WordleData>(
     initialStateWordleData
   );
 
@@ -18,7 +17,15 @@ export function Wordle() {
       } else if (isAlphabet(event.key) && newWord.length < 5) {
         newWord = word + event.key.toUpperCase();
       }
-      setWord(newWord);
+      const unusedIndex: number = findUnusedIndex(wordleData);
+      let newWordleData: WordleData = wordleData;
+      Object.keys(newWordleData).forEach((value: string) => {
+        const index = Number(value);
+        if (index == unusedIndex) {
+          newWordleData[index].guess = newWord;
+        }
+      });
+      setWordleData({ ...newWordleData });
       console.log(event.key);
     };
 
@@ -38,7 +45,12 @@ export function Wordle() {
       rounded={"3xl"}
     >
       <WordleGrid data={wordleData}></WordleGrid>
-      <Button onClick={() => setWordleData(initialStateWordleData)}>
+      <Button
+        variant={"outline"}
+        colorScheme="gray"
+        fontWeight={"400"}
+        onClick={() => setWordleData(initialStateWordleData)}
+      >
         Reset Wordle 🔄
       </Button>
       <Text>{word}</Text>
@@ -51,7 +63,7 @@ const initialStateWordleData = {
     used: false,
     guess: "",
     is_valid_word: false,
-    score: [0, 0, 0, 0, 0],
+    score: [-1, -1, -1, -1, -1],
   },
   1: {
     used: false,

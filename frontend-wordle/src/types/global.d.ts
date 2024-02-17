@@ -1,16 +1,18 @@
-export interface rowData {
+// global.d.ts
+
+declare interface RowData {
   used: boolean;
   guess: string;
   is_valid_word: boolean;
-  score: integer[];
+  score: number[];
 }
 
-export interface wordleData {
-  [key: number]: rowData;
-  0: rowData;
-  1: rowData;
-  2: rowData;
-  3: rowData;
-  4: rowData;
-  5: rowData;
+declare interface WordleData {
+  [key: number]: RowData;
+  0: RowData;
+  1: RowData;
+  2: RowData;
+  3: RowData;
+  4: RowData;
+  5: RowData;
 }
