@@ -8,7 +8,7 @@ export default function PlayBox() {
       border={"2px"}
       my={"3em"}
       mx={"8em"}
-      borderColor={"gray.300"}
+      borderColor={"gray.400"}
       minH={"60vh"}
       rounded={"3xl"}
     >

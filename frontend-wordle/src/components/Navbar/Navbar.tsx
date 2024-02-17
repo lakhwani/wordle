@@ -12,7 +12,7 @@ const Navbar = () => {
   return (
     <Box
       borderBottom="2px"
-      borderColor="gray.300"
+      borderColor="gray.400"
       bg="gray.100"
       p={4}
       color="white"

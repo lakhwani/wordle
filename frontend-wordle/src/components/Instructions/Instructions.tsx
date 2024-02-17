@@ -7,7 +7,7 @@ export default function Instructions() {
       p={"5px"}
       my={"2em"}
       mx={"2em"}
-      borderColor={"gray.200"}
+      borderColor={"gray.300"}
       minH={"5vh"}
       rounded={"3xl"}
     >
