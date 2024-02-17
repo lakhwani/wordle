@@ -1,5 +1,4 @@
 // global.d.ts
-
 declare interface RowData {
   used: boolean;
   guess: string;
