@@ -1,11 +1,13 @@
 // _app.tsx
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, Box } from "@chakra-ui/react";
 import type { AppProps } from "next/app";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider>
-      <Component {...pageProps} />
+      <Box bg="gray.50" minH="100vh">
+        <Component {...pageProps} />
+      </Box>
     </ChakraProvider>
   );
 }
