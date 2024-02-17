@@ -16,7 +16,9 @@ export function Wordle() {
         newWord = newWord.slice(0, -1);
       } else if (isAlphabet(event.key) && newWord.length < 5) {
         newWord = word + event.key.toUpperCase();
+      } else if (newWord.length < 5 && event.key == "Enter") {
       }
+      setWord(newWord);
       const unusedIndex: number = findUnusedIndex(wordleData);
       let newWordleData: WordleData = wordleData;
       Object.keys(newWordleData).forEach((value: string) => {
