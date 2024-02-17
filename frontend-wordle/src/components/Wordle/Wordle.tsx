@@ -1,41 +1,74 @@
 import { useEffect, useState } from "react";
 import { Box, Text, Button } from "@chakra-ui/react";
-import WordleGrid from "../WordleGrid/WordleGrid";
 import { findUnusedIndex, isAlphabet } from "@/utils/utils";
+import { validateWord } from "@/api/api";
+import { initialStateWordleData } from "@/utils/constants";
+import WordleGrid from "../WordleGrid/WordleGrid";
 
 export function Wordle() {
   const [word, setWord] = useState<string>("");
   const [wordleData, setWordleData] = useState<WordleData>(
     initialStateWordleData
   );
+  const [loading, setLoading] = useState<boolean>(false);
+
+  function resetWordle() {
+    setWordleData(initialStateWordleData);
+    setWord("");
+    window.location.reload();
+  }
 
   useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
+    const handleKeyDown = async (event: KeyboardEvent) => {
+      if (loading) return; // Ignore key presses while loading
+
       let newWord = word;
-      if (event.key == "Backspace") {
-        newWord = newWord.slice(0, -1);
-      } else if (isAlphabet(event.key) && newWord.length < 5) {
-        newWord = word + event.key.toUpperCase();
-      } else if (newWord.length < 5 && event.key == "Enter") {
-      }
-      setWord(newWord);
       const unusedIndex: number = findUnusedIndex(wordleData);
       let newWordleData: WordleData = wordleData;
-      Object.keys(newWordleData).forEach((value: string) => {
-        const index = Number(value);
-        if (index == unusedIndex) {
-          newWordleData[index].guess = newWord;
-        }
-      });
-      setWordleData({ ...newWordleData });
-      console.log(event.key);
-    };
 
+      if (unusedIndex > -1 && unusedIndex < 6) {
+        if (event.key == "Backspace") {
+          newWord = newWord.slice(0, -1);
+        } else if (isAlphabet(event.key) && newWord.length < 5) {
+          newWord = word + event.key.toUpperCase();
+        }
+        if (newWord.length === 5 && event.key == "Enter") {
+          setLoading(true); // Set loading state
+          try {
+            const response = await validateWord(newWord);
+            Object.keys(newWordleData).forEach((value: string) => {
+              const index = Number(value);
+              if (index === unusedIndex) {
+                newWordleData[index].used = true;
+                newWordleData[index].guess = newWord;
+                newWordleData[index].is_valid_word = response.is_valid_word;
+                newWordleData[index].score = response.score;
+              }
+            });
+            setWordleData(newWordleData);
+            setWord("");
+          } catch (error: any) {
+            console.log(error);
+          }
+          setTimeout(() => setLoading(false), 3000); // Remove loading state after 3 seconds
+        } else {
+          setWord(newWord);
+          Object.keys(newWordleData).forEach((value: string) => {
+            const index = Number(value);
+            if (index === unusedIndex) {
+              newWordleData[index].guess = newWord;
+            }
+          });
+          setWordleData(newWordleData);
+        }
+      }
+    };
     window.addEventListener("keydown", handleKeyDown);
+
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [word]);
+  }, [word, loading]);
 
   return (
     <Box
@@ -51,7 +84,7 @@ export function Wordle() {
         variant={"outline"}
         colorScheme="gray"
         fontWeight={"400"}
-        onClick={() => setWordleData(initialStateWordleData)}
+        onClick={() => resetWordle()}
       >
         Reset Wordle 🔄
       </Button>
@@ -59,42 +92,3 @@ export function Wordle() {
     </Box>
   );
 }
-
-const initialStateWordleData = {
-  0: {
-    used: false,
-    guess: "",
-    is_valid_word: false,
-    score: [-1, -1, -1, -1, -1],
-  },
-  1: {
-    used: false,
-    guess: "",
-    is_valid_word: false,
-    score: [0, 0, 0, 0, 0],
-  },
-  2: {
-    used: false,
-    guess: "",
-    is_valid_word: false,
-    score: [0, 0, 0, 0, 0],
-  },
-  3: {
-    used: false,
-    guess: "",
-    is_valid_word: false,
-    score: [0, 0, 0, 0, 0],
-  },
-  4: {
-    used: false,
-    guess: "",
-    is_valid_word: false,
-    score: [0, 0, 0, 0, 0],
-  },
-  5: {
-    used: false,
-    guess: "",
-    is_valid_word: false,
-    score: [0, 0, 0, 0, 0],
-  },
-};

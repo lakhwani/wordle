@@ -9,10 +9,11 @@ export function isAlphabet(str: string) {
 export function findUnusedIndex(data: WordleData) {
   for (let i = 0; i < 6; i++) {
     if (data[i].used == false) {
+      console.log(i);
       return i;
     }
-    i++;
   }
+  console.log(-1);
   return -1;
 }
 

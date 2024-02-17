@@ -23,6 +23,7 @@ export function WordleLetter(props: WordleLetterProps) {
       minH={"7.5vh"}
       rounded={"3xl"}
       bg={getColour(props.score)}
+      transition="background-color 1s ease"
     >
       <Text
         className={lodrinaOutline.className}

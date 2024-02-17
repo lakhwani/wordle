@@ -1,5 +1,5 @@
 // Navbar.tsx
-import { Box, Flex, Link, Button, Text, HStack } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import { Londrina_Outline } from "@next/font/google";
 import HelpModal from "../HelpModal/HelpModal";
 
