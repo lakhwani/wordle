@@ -6,8 +6,8 @@ export default function PlayBox() {
   return (
     <Box
       border={"2px"}
-      my={"3em"}
-      mx={"8em"}
+      my={"2em"}
+      mx={"6em"}
       borderColor={"gray.400"}
       minH={"60vh"}
       minW={"30em"}

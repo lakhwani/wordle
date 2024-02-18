@@ -17,9 +17,9 @@ const Navbar = () => {
       p={4}
       color="white"
     >
-      <Flex justifyContent={"center"} justifyItems={"center"} ml="20px">
+      <Flex justifyContent={"center"} justifyItems={"center"} ml="1em">
         <Text
-          fontSize={"60px"}
+          fontSize={"56px"}
           color="black"
           className={lodrinaOutline.className}
         >

@@ -23,14 +23,14 @@ export default function HelpModal() {
     <>
       <Button
         onClick={onOpen}
-        fontSize={"40px"}
+        fontSize={"36px"}
         color="gray.700"
         className={lodrinaOutline.className}
       >
         [?]
       </Button>
 
-      <Modal isOpen={isOpen} onClose={onClose} size={"xl"}>
+      <Modal isOpen={isOpen} onClose={onClose} size={"2xl"}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>How to Play?</ModalHeader>

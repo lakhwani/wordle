@@ -27,7 +27,7 @@ export function WordleLetter(props: WordleLetterProps) {
     >
       <Text
         className={lodrinaOutline.className}
-        fontSize={"60px"}
+        fontSize={"50px"}
         color={"gray.600"}
       >
         <b>{props.letter}</b>
