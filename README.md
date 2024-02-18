@@ -13,7 +13,7 @@ To run the project on your local machine, follow these steps:
 1. Clone the repository:
 2. Navigate to the project directory:
    ```sh
-   cd wordle-frontend
+   cd frontend-wordle
    ```
 3. Install the dependencies:
    ```sh
