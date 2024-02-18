@@ -17,7 +17,7 @@ const Navbar = () => {
       p={4}
       color="white"
     >
-      <Flex justifyContent={"center"} justifyItems={"center"}>
+      <Flex justifyContent={"center"} justifyItems={"center"} ml="20px">
         <Text
           fontSize={"60px"}
           color="black"

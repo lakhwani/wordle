@@ -10,10 +10,18 @@ export default function PlayBox() {
       mx={"8em"}
       borderColor={"gray.400"}
       minH={"60vh"}
+      minW={"30em"}
+      maxW={"40em"}
       rounded={"3xl"}
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="center"
     >
-      <Wordle></Wordle>
-      <Instructions></Instructions>
+      <Box w="100%">
+        <Wordle></Wordle>
+        <Instructions></Instructions>
+      </Box>
     </Box>
   );
 }
