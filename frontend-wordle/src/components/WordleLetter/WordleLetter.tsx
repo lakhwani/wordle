@@ -22,7 +22,7 @@ export function WordleLetter(props: WordleLetterProps) {
       borderColor={"gray.200"}
       minH={"7.5vh"}
       rounded={"3xl"}
-      bg={getColour(props.score)}
+      backgroundColor={getColour(props.score)}
       transition="background-color 1s ease"
     >
       <Text

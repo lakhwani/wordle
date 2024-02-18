@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { Box, Text, Button } from "@chakra-ui/react";
+import { Box, Text, Button, useToast } from "@chakra-ui/react";
 import { findUnusedIndex, isAlphabet } from "@/utils/utils";
 import { validateWord } from "@/api/api";
-import { initialStateWordleData } from "@/utils/constants";
+import { initialStateWordleData, defaultScore } from "@/utils/constants";
 import WordleGrid from "../WordleGrid/WordleGrid";
 
 export function Wordle() {
@@ -11,6 +11,7 @@ export function Wordle() {
     initialStateWordleData
   );
   const [loading, setLoading] = useState<boolean>(false);
+  const toast = useToast();
 
   function resetWordle() {
     setWordleData(initialStateWordleData);
@@ -33,24 +34,36 @@ export function Wordle() {
           newWord = word + event.key.toUpperCase();
         }
         if (newWord.length === 5 && event.key == "Enter") {
-          setLoading(true); // Set loading state
+          setLoading(true);
           try {
             const response = await validateWord(newWord);
+            const newScore =
+              response.score.length === 0 ? defaultScore : response.score;
             Object.keys(newWordleData).forEach((value: string) => {
               const index = Number(value);
               if (index === unusedIndex) {
-                newWordleData[index].used = true;
+                newWordleData[index].used = response.is_valid_word;
                 newWordleData[index].guess = newWord;
                 newWordleData[index].is_valid_word = response.is_valid_word;
-                newWordleData[index].score = response.score;
+                newWordleData[index].score = newScore;
               }
             });
             setWordleData(newWordleData);
-            setWord("");
+            if (!response.is_valid_word) {
+              toast({
+                title: "Invalid word.",
+                description: "Please try again with a valid word.",
+                status: "error",
+                duration: 3000,
+                isClosable: true,
+              });
+            } else {
+              setWord("");
+            }
           } catch (error: any) {
             console.log(error);
           }
-          setTimeout(() => setLoading(false), 3000); // Remove loading state after 3 seconds
+          setTimeout(() => setLoading(false), 1000); // Remove loading state
         } else {
           setWord(newWord);
           Object.keys(newWordleData).forEach((value: string) => {
